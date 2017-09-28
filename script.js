@@ -52,7 +52,7 @@ function showCarpet(obj) {
   for (prop in obj) {
     var data = document.createElement('span');
     data.style.display = 'block';
-    data.innerHTML = prop + ' ' + obj[prop];
+    data.innerHTML = prop + ': ' + obj[prop];
     space.appendChild(data);
     console.log(prop + ' ' + obj[prop]);
     var newObj = obj[prop];
