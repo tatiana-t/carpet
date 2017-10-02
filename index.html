@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>JSON ULTIMATE FINDER</title>
-    <link rel="stylesheet" href="./css/style.css">
-  </head>
-  <body>
-    <h1>BRUTAL TRUEELASTICSEARCH</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-<!--
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSON ULTIMATE FINDER</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header class="header">
+    <label for="search" class="header__search-label"><input id="search" type="search" placeholder="введите артикул" class="header__serch-line" disabled></label>
+
+
+  </header>
+  <!-- All of the Node.js APIs are available in this renderer process. -->
+  <!--
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
@@ -18,13 +24,29 @@
       require('./renderer.js')
     </script>
 -->
-   <form id="form">
-<!--    <label for="data">Выберите файл .json с коварми</label><br>-->
-     <input type="file" method="get" action="" id="data" >
-<!--     <button id="chose" type="submit">Выбрать</button>--> <br>
-  <input id="search" type="search" placeholder="введите артикул">
-   </form>
-    <div class="container" id="info"></div>
+
+  <div class="chose-btn-wrap">
+    <input type="file" method="get" action="" id="data" class="chose-btn">
+    <label for="data">Выберите файл</label>
+  </div>
+
+  <table class="container" id="info">
+    <thead class="thead">
+      <tr>
+        <td>Размер ковра</td>
+        <td>Город</td>
+        <td>Магазин</td>
+        <td>Цена</td>
+        <td>Скидка</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
