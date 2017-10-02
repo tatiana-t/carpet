@@ -86,8 +86,13 @@ input[type="file"] + label:hover::after {
   background-color: rgba(0, 0, 0, 0.05);
 }
 .container {
+  display: none;
   border: 2px solid lightgrey;
   border-collapse: collapse;
+  background-color: #fff;
+}
+.container.active {
+  display: block;
 }
 .container td {
   padding: 3px;

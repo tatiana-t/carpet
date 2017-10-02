@@ -26,13 +26,15 @@
 -->
 
   <div class="chose-btn-wrap">
-    <input type="file" method="get" action="" id="data" class="chose-btn">
-    <label for="data">Выберите файл</label>
+    <input type="file" method="get" action="" id="dataFile" class="chose-btn">
+    <label for="dataFile">Выберите файл</label>
   </div>
 
   <table class="container" id="info">
     <thead class="thead">
       <tr>
+        <td>Артикул</td>
+        <td>Коллекция</td>
         <td>Размер ковра</td>
         <td>Город</td>
         <td>Магазин</td>
@@ -40,10 +42,8 @@
         <td>Скидка</td>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td></td>
-      </tr>
+    <tbody id="content">
+
     </tbody>
   </table>
   <script src="script.js"></script>
