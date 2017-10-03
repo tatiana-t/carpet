@@ -5,11 +5,32 @@ var form = document.getElementById('form');
 var search = document.getElementById('search');
 var file;
 
+var result = document.getElementById('result');
+var space = document.getElementById('space');
+var spans = space.getElementsByTagName('span');
+var searchOnPage = document.getElementById('searchOnPage');
+
+
+
+searchOnPage.oninput = function() {
+  for (var i = 0; i < spans.length; i++) {
+    spans[i].style.backgroundColor = 'transparent';
+  }
+  
+  for (var i = 0; i < spans.length; i++) {
+    var span = spans[i].innerHTML;
+  if (span.indexOf(searchOnPage.value, 0) >= 0) {
+    spans[i].style.backgroundColor = 'yellow';
+    //result.innerHTML = span;
+  }
+}
+}
+
 carpet.onchange = function () {
   carpet = document.getElementById('dataFile').files[0];
   // carpet = JSON.parse(this.responseText);
   carpet = carpet.path;
-  console.log(carpet.path);
+  //console.log(carpet.path);
   //space.innerHTML = carpet[0].Collection;
 
   //var reader = new FileReader
@@ -63,40 +84,40 @@ function searchCarpet(info) {
 }
 
 function showCarpet(obj) {
-  console.log(obj);
-  //  for (prop in obj) {
-  //    var data = document.createElement('span');
-  //    data.style.display = 'block';
-  //    data.innerHTML = prop + ': ' + obj[prop];
-  //    space.appendChild(data);
-  //    console.log(prop + ' ' + obj[prop]);
-  //    var newObj = obj[prop];
-  //    if (typeof newObj == 'object') {
-  //      showCarpet(newObj);
-  //
-  //    }
-  //  }
-  var content = document.getElementById('content');
-  var string = document.createElement('tr');
-  var cell;
-  var amount;
-  // var sizes = obj.properties.length;
-
-  table.classList.add('active');
-
-  //Article
-  cell = createCell();
-  cell.setAttribute('rowspan', count);
-  cell.innerHTML = obj.article;
-  string.appendChild(cell);
-
-
-  //Collection
-  cell = createCell();
-  searchInArrayOfObjects(obj.properties);
-  cell.setAttribute('rowspan', amount);
-  cell.innerHTML = obj.Collection;
-  string.appendChild(cell);
+  //console.log(obj);
+    for (prop in obj) {
+      var data = document.createElement('span');
+      data.style.display = 'block';
+      data.innerHTML = prop + ': ' + obj[prop];
+      space.appendChild(data);
+      //console.log(prop + ' ' + obj[prop]);
+      var newObj = obj[prop];
+      if (typeof newObj == 'object') {
+        showCarpet(newObj);
+  
+      }
+    }
+//  var content = document.getElementById('content');
+//  var string = document.createElement('tr');
+//  var cell;
+//  var amount;
+//  // var sizes = obj.properties.length;
+//
+//  table.classList.add('active');
+//
+//  //Article
+//  cell = createCell();
+//  cell.setAttribute('rowspan', count);
+//  cell.innerHTML = obj.article;
+//  string.appendChild(cell);
+//
+//
+//  //Collection
+//  cell = createCell();
+//  searchInArrayOfObjects(obj.properties);
+//  cell.setAttribute('rowspan', amount);
+//  cell.innerHTML = obj.Collection;
+//  string.appendChild(cell);
 
   //  for (var i = 0; i < obj.properties.length; i++) {
   //    var properties = obj.properties;
@@ -106,45 +127,46 @@ function showCarpet(obj) {
   //    var shops = properties[i].length
   //  }
 
-
-  function searchInArrayOfObjects(obj) {
-    for (var i = 0; i < obj.length; i++) {
-      
-      if (obj === file[i]) {
-        amount = obj.length;
-      } else if (obj === file[i].properties) {
-        for (var i = 0; i < obj.length; i++) {
-          amount = obj.properties[i].properties.length;
-
-        }
-      }
-
-      return amount;
-    }
-  }
-
-  // Sizes
-
-  //obj.properties.length;
-  cell = createCell();
-
-//  function XXX(obj.properties) {
-//    for (var i = 0; i < obj.length; i++) {
-//      amount = obj.properties[i].properties.length;
 //
+//  function searchInArrayOfObjects(obj) {
+//    for (var i = 0; i < obj.length; i++) {
+//      
+//      if (obj === file[i]) {
+//        amount = obj.length;
+//      } else if (obj === file[i].properties) {
+//        for (var i = 0; i < obj.length; i++) {
+//          amount = obj[i].properties.length;
+//
+//        }
+//      }
+//
+//      return amount;
 //    }
 //  }
-
-
-
-  searchInArrayOfObjects(obj.properties.properties)
-  cell.setAttribute('rowspan', amount);
-  //cell.innerHTML = obj.properties.width + ' x ' + obj.properties.height;
-  string.appendChild(cell);
-
-  content.appendChild(string);
-}
-
-function createCell() {
-  return cell = document.createElement('td');
+//
+//  // Sizes
+//
+//  //obj.properties.length;
+//  cell = createCell();
+//
+////  function XXX(obj.properties) {
+////    for (var i = 0; i < obj.length; i++) {
+////      amount = obj.properties[i].properties.length;
+////
+////    }
+////  }
+//
+//
+//
+//  searchInArrayOfObjects(obj.properties.properties)
+//  cell.setAttribute('rowspan', amount);
+//  //cell.innerHTML = obj.properties.width + ' x ' + obj.properties.height;
+//  string.appendChild(cell);
+//
+//  content.appendChild(string);
+//}
+//
+//function createCell() {
+//  return cell = document.createElement('td');
+//}
 }
