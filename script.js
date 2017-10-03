@@ -19,6 +19,8 @@ searchOnPage.oninput = function() {
   
   for (var i = 0; i < spans.length; i++) {
     var span = spans[i].innerHTML;
+    span = span.toLowerCase();
+    
   if (span.indexOf(searchOnPage.value, 0) >= 0) {
     spans[i].style.backgroundColor = 'yellow';
     //result.innerHTML = span;
