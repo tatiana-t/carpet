@@ -12,23 +12,10 @@ var searchOnPage = document.getElementById('searchOnPage');
 
 
 
-searchOnPage.oninput = function() {
-  for (var i = 0; i < spans.length; i++) {
-    spans[i].style.backgroundColor = 'transparent';
-  }
-  
-  for (var i = 0; i < spans.length; i++) {
-    var span = spans[i].innerHTML;
-    span = span.toLowerCase();
-    
-  if (span.indexOf(searchOnPage.value, 0) >= 0) {
-    spans[i].style.backgroundColor = 'yellow';
-    //result.innerHTML = span;
-  }
-}
-}
+
 
 carpet.onchange = function () {
+
   carpet = document.getElementById('dataFile').files[0];
   // carpet = JSON.parse(this.responseText);
   carpet = carpet.path;
@@ -67,6 +54,7 @@ var info;
 search.oninput = function () {
   info = search.value;
   //console.log(info);
+  space.innerHTML = '';
   searchCarpet(info);
 }
 var count = 0;
@@ -87,18 +75,39 @@ function searchCarpet(info) {
 
 function showCarpet(obj) {
   //console.log(obj);
+
     for (prop in obj) {
       var data = document.createElement('span');
+
       data.style.display = 'block';
-      data.innerHTML = prop + ': ' + obj[prop];
+
+
+        function propArgument(searchProp) {
+          if(prop === searchProp) {
+            data.innerHTML = prop + ': ' + obj[prop];
+          }
+        }
+
+      propArgument('Collection');
+      propArgument('article');
+      propArgument('width');
+      propArgument('height');
+      propArgument('city');
+      propArgument('shopTitle');
+      propArgument('shop');
+      propArgument('quantity');
+      propArgument('price');
+      propArgument('discount');
       space.appendChild(data);
       //console.log(prop + ' ' + obj[prop]);
       var newObj = obj[prop];
       if (typeof newObj == 'object') {
         showCarpet(newObj);
-  
+
       }
     }
+
+
 //  var content = document.getElementById('content');
 //  var string = document.createElement('tr');
 //  var cell;
@@ -125,14 +134,14 @@ function showCarpet(obj) {
   //    var properties = obj.properties;
   //    properties[i].width;
   //    properties[i].height;
-  //    
+  //
   //    var shops = properties[i].length
   //  }
 
 //
 //  function searchInArrayOfObjects(obj) {
 //    for (var i = 0; i < obj.length; i++) {
-//      
+//
 //      if (obj === file[i]) {
 //        amount = obj.length;
 //      } else if (obj === file[i].properties) {
