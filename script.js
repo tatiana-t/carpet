@@ -77,14 +77,19 @@ function showCarpet(obj) {
   //console.log(obj);
 
     for (prop in obj) {
-      var data = document.createElement('span');
-
-      data.style.display = 'block';
+      var row = document.createElement('tr');
+      var prop = document.createElement('td');
+      var data = document.createElement('td');
+      row.appendChild(prop);
+      row.appendChild(data);
+      space.appendChild(row);
+      //data.style.display = 'block';
 
 
         function propArgument(searchProp) {
           if(prop === searchProp) {
-            data.innerHTML = prop + ': ' + obj[prop];
+            prop.innerHTML = prop + ': ';
+            data.innerHTML = obj[prop];
           }
         }
 
