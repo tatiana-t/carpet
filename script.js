@@ -78,18 +78,19 @@ function showCarpet(obj) {
 
     for (prop in obj) {
       var row = document.createElement('tr');
-      var prop = document.createElement('td');
+      var property = document.createElement('td');
       var data = document.createElement('td');
-      row.appendChild(prop);
-      row.appendChild(data);
-      space.appendChild(row);
+      
       //data.style.display = 'block';
 
 
         function propArgument(searchProp) {
           if(prop === searchProp) {
-            prop.innerHTML = prop + ': ';
+            property.innerHTML = prop + ': ';
             data.innerHTML = obj[prop];
+            if (searchProp === 'city') {
+              row.style.backgroundColor = 'white';
+            }
           }
         }
 
@@ -103,7 +104,9 @@ function showCarpet(obj) {
       propArgument('quantity');
       propArgument('price');
       propArgument('discount');
-      space.appendChild(data);
+      row.appendChild(property);
+      row.appendChild(data);
+      space.appendChild(row);
       //console.log(prop + ' ' + obj[prop]);
       var newObj = obj[prop];
       if (typeof newObj == 'object') {
