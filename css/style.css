@@ -49,14 +49,16 @@ h1{
   right: -30px;
   top: 13px;
 }
-.chose-btn-wrap {
+.inputFileWrapper {
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80vh;
 }
-
+.inputFileWrapper.disabled {
+   display: none;
+}
 
 input[type="file"] {
   display: none;
@@ -85,16 +87,27 @@ input[type="file"] + label:hover::after {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.05);
 }
-.container {
+.selector-wrap {
+  display: none;
+  padding: 15px;
+  justify-content: flex-start;
+}
+select {
+  margin-right: 50px;
+}
+.selector-wrap.active {
+  display: flex;
+}
+.table {
   display: none;
   border: 2px solid lightgrey;
   border-collapse: collapse;
   background-color: #fff;
 }
-.container.active {
+.table.active {
   display: block;
 }
-.container td {
+.table td {
   padding: 3px;
   border: 2px solid lightgrey;
 }

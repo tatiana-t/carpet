@@ -1,4 +1,4 @@
-var carpet = document.getElementById('dataFile');
+var carpet = document.getElementById('inputFile');
 var btn = document.getElementById('chose');
 var table = document.getElementById('info');
 var form = document.getElementById('form');
@@ -16,7 +16,7 @@ var searchOnPage = document.getElementById('searchOnPage');
 
 carpet.onchange = function () {
 
-  carpet = document.getElementById('dataFile').files[0];
+  carpet = document.getElementById('inputFile').files[0];
   // carpet = JSON.parse(this.responseText);
   carpet = carpet.path;
   //console.log(carpet.path);
@@ -76,67 +76,67 @@ function searchCarpet(info) {
 function showCarpet(obj) {
   //console.log(obj);
 
-    for (prop in obj) {
-      var row = document.createElement('tr');
-      var property = document.createElement('td');
-      var data = document.createElement('td');
-      
-      //data.style.display = 'block';
+  for (prop in obj) {
+    var row = document.createElement('tr');
+    var property = document.createElement('td');
+    var data = document.createElement('td');
+
+    //data.style.display = 'block';
 
 
-        function propArgument(searchProp) {
-          if(prop === searchProp) {
-            property.innerHTML = prop + ': ';
-            data.innerHTML = obj[prop];
-            if (searchProp === 'city') {
-              row.style.backgroundColor = 'white';
-            }
-          }
+    function propArgument(searchProp) {
+      if (prop === searchProp) {
+        property.innerHTML = prop + ': ';
+        data.innerHTML = obj[prop];
+        if (searchProp === 'city') {
+          row.style.backgroundColor = 'white';
         }
-
-      propArgument('Collection');
-      propArgument('article');
-      propArgument('width');
-      propArgument('height');
-      propArgument('city');
-      propArgument('shopTitle');
-      propArgument('shop');
-      propArgument('quantity');
-      propArgument('price');
-      propArgument('discount');
-      row.appendChild(property);
-      row.appendChild(data);
-      space.appendChild(row);
-      //console.log(prop + ' ' + obj[prop]);
-      var newObj = obj[prop];
-      if (typeof newObj == 'object') {
-        showCarpet(newObj);
-
       }
     }
 
+    propArgument('Collection');
+    propArgument('article');
+    propArgument('width');
+    propArgument('height');
+    propArgument('city');
+    propArgument('shopTitle');
+    propArgument('shop');
+    propArgument('quantity');
+    propArgument('price');
+    propArgument('discount');
+    row.appendChild(property);
+    row.appendChild(data);
+    space.appendChild(row);
+    //console.log(prop + ' ' + obj[prop]);
+    var newObj = obj[prop];
+    if (typeof newObj == 'object') {
+      showCarpet(newObj);
 
-//  var content = document.getElementById('content');
-//  var string = document.createElement('tr');
-//  var cell;
-//  var amount;
-//  // var sizes = obj.properties.length;
-//
-//  table.classList.add('active');
-//
-//  //Article
-//  cell = createCell();
-//  cell.setAttribute('rowspan', count);
-//  cell.innerHTML = obj.article;
-//  string.appendChild(cell);
-//
-//
-//  //Collection
-//  cell = createCell();
-//  searchInArrayOfObjects(obj.properties);
-//  cell.setAttribute('rowspan', amount);
-//  cell.innerHTML = obj.Collection;
-//  string.appendChild(cell);
+    }
+  }
+
+
+  //  var content = document.getElementById('content');
+  //  var string = document.createElement('tr');
+  //  var cell;
+  //  var amount;
+  //  // var sizes = obj.properties.length;
+  //
+  //  table.classList.add('active');
+  //
+  //  //Article
+  //  cell = createCell();
+  //  cell.setAttribute('rowspan', count);
+  //  cell.innerHTML = obj.article;
+  //  string.appendChild(cell);
+  //
+  //
+  //  //Collection
+  //  cell = createCell();
+  //  searchInArrayOfObjects(obj.properties);
+  //  cell.setAttribute('rowspan', amount);
+  //  cell.innerHTML = obj.Collection;
+  //  string.appendChild(cell);
 
   //  for (var i = 0; i < obj.properties.length; i++) {
   //    var properties = obj.properties;
@@ -146,46 +146,46 @@ function showCarpet(obj) {
   //    var shops = properties[i].length
   //  }
 
-//
-//  function searchInArrayOfObjects(obj) {
-//    for (var i = 0; i < obj.length; i++) {
-//
-//      if (obj === file[i]) {
-//        amount = obj.length;
-//      } else if (obj === file[i].properties) {
-//        for (var i = 0; i < obj.length; i++) {
-//          amount = obj[i].properties.length;
-//
-//        }
-//      }
-//
-//      return amount;
-//    }
-//  }
-//
-//  // Sizes
-//
-//  //obj.properties.length;
-//  cell = createCell();
-//
-////  function XXX(obj.properties) {
-////    for (var i = 0; i < obj.length; i++) {
-////      amount = obj.properties[i].properties.length;
-////
-////    }
-////  }
-//
-//
-//
-//  searchInArrayOfObjects(obj.properties.properties)
-//  cell.setAttribute('rowspan', amount);
-//  //cell.innerHTML = obj.properties.width + ' x ' + obj.properties.height;
-//  string.appendChild(cell);
-//
-//  content.appendChild(string);
-//}
-//
-//function createCell() {
-//  return cell = document.createElement('td');
-//}
+  //
+  //  function searchInArrayOfObjects(obj) {
+  //    for (var i = 0; i < obj.length; i++) {
+  //
+  //      if (obj === file[i]) {
+  //        amount = obj.length;
+  //      } else if (obj === file[i].properties) {
+  //        for (var i = 0; i < obj.length; i++) {
+  //          amount = obj[i].properties.length;
+  //
+  //        }
+  //      }
+  //
+  //      return amount;
+  //    }
+  //  }
+  //
+  //  // Sizes
+  //
+  //  //obj.properties.length;
+  //  cell = createCell();
+  //
+  ////  function XXX(obj.properties) {
+  ////    for (var i = 0; i < obj.length; i++) {
+  ////      amount = obj.properties[i].properties.length;
+  ////
+  ////    }
+  ////  }
+  //
+  //
+  //
+  //  searchInArrayOfObjects(obj.properties.properties)
+  //  cell.setAttribute('rowspan', amount);
+  //  //cell.innerHTML = obj.properties.width + ' x ' + obj.properties.height;
+  //  string.appendChild(cell);
+  //
+  //  content.appendChild(string);
+  //}
+  //
+  //function createCell() {
+  //  return cell = document.createElement('td');
+  //}
 }

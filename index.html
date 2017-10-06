@@ -9,36 +9,30 @@
 
 <body>
   <header class="header">
-    <label for="search" class="header__search-label"><input id="search" type="search" placeholder="введите артикул" class="header__serch-line" disabled>
-    
-
-
+    <label for="search" class="header__search-label">
+      <input id="inputSearch" type="search" placeholder="введите артикул" class="header__serch-line" disabled>
+    </label>
   </header>
-  <!-- All of the Node.js APIs are available in this renderer process. -->
-  <!--
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
--->
-
-  <div class="chose-btn-wrap">
-    <input type="file" method="get" action="" id="dataFile" class="chose-btn">
-    <label for="dataFile">Выберите файл</label>
-  </div>
   
-<table>
-  <tbody class="space" id="space"></tbody>
-</table>
-<!--
-  <table class="container" id="info">
+  <div class="inputFileWrapper" id="inputFileWrapper">
+    <input type="file" method="get" action="" id="inputFile" class="chose-btn">
+    <label for="inputFile">Выберите файл</label>
+  </div>
+
+  <div class="selector-wrap" id="selectorWrap">
+    <select id="collectionSelector" disabled>
+    <option value="default" selected>Выбрите коллекцию</option></select>
+    
+    <select id="sizeSelector" disabled>
+    <option value="default" selected>Выбрите размер</option></select>
+    
+    <select id="citySelector" disabled>
+    <option value="default" selected>Выбрите город</option></select>
+  </div>
+ 
+  <table class="table" id="table">
     <thead class="thead">
       <tr>
-        <td>Артикул</td>
         <td>Коллекция</td>
         <td>Размер ковра</td>
         <td>Город</td>
@@ -47,12 +41,11 @@
         <td>Скидка</td>
       </tr>
     </thead>
-    <tbody id="content">
+    <tbody id="tableContent">
 
     </tbody>
   </table>
--->
-  <script src="script.js"></script>
+  <script src="script-2-edition.js"></script>
 </body>
 
 </html>
