@@ -1,191 +1,244 @@
-var carpet = document.getElementById('inputFile');
-var btn = document.getElementById('chose');
-var table = document.getElementById('info');
-var form = document.getElementById('form');
-var search = document.getElementById('search');
-var file;
+//вывод таблицы со всеми коврами
+var tableContent = document.getElementById('tableContent');
+var inputSearch = document.getElementById('inputSearch');
 
-var result = document.getElementById('result');
-var space = document.getElementById('space');
-var spans = space.getElementsByTagName('span');
-var searchOnPage = document.getElementById('searchOnPage');
+var inputFile = document.getElementById('inputFile');
+var inputFileEnabled;
+inputFile.onchange = function () {
 
-
-
-
-
-carpet.onchange = function () {
-
-  carpet = document.getElementById('inputFile').files[0];
-  // carpet = JSON.parse(this.responseText);
-  carpet = carpet.path;
-  //console.log(carpet.path);
-  //space.innerHTML = carpet[0].Collection;
-
-  //var reader = new FileReader
+  inputFile = document.getElementById('inputFile').files[0];
+  inputFile = inputFile.path;
+  //console.log(inputFile);
 
   var xhr = new XMLHttpRequest();
 
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      file = JSON.parse(this.responseText);
-      //console.log(file);
-      //space.innerHTML = file;
+      inputFileEnabled = JSON.parse(this.responseText);
+      //console.log(inputFileEnabled);
+      //tableContent.innerHTML = inputFileEnabled;
+      //tableContent.innerHTML = inputFileEnabled[0].Collection;
     }
   };
 
-  xhr.open('GET', carpet, true);
+  xhr.open('GET', inputFile, true);
   xhr.send();
 
-  stepToSearch();
+  showTable();
 }
 
-function stepToSearch() {
+function showTable() {
+  //прячем кнопку выбора файла
+  var inputFileWrapper = document.getElementById('inputFileWrapper');
+  inputFileWrapper.classList.add('disabled');
 
-  var x = document.getElementById('search');
-  x.removeAttribute('disabled');
-  var inputFile = document.querySelector('.chose-btn-wrap');
-  inputFile.style.display = 'none';
+
+
+  //выводим селекторы
+  var selectorWrap = document.getElementById('selectorWrap');
+  selectorWrap.classList.add('active');
+
+  //разблокируем строку поиска
+  inputSearch.removeAttribute('disabled');
+
+
+}
+var collectionSelector = document.getElementById('collectionSelector');
+var sizeSelector = document.getElementById('sizeSelector');
+var selectedArticle;
+var selectedArticleArr = [];
+inputSearch.oninput = searchArticle;
+
+function searchArticle() {
+  //collectionSelector.innerHTML = '';
+
+  selectedArticle = inputSearch.value;
+
+
+  inputFileEnabled.forEach(function (value, i, inputFileEnabled) {
+    if (inputFileEnabled[i].article === selectedArticle) {
+
+      selectedArticleArr.push(inputFileEnabled[i]);
+
+      //создаем опции выбора, вставляем в них значение коллекции
+      var option = new Option(inputFileEnabled[i].Collection, inputFileEnabled[i].Collection);
+      //console.log(option);
+      //console.log(selectedArticleArr);
+      //option.appendChild(document.createTextNode(collectionArray[i]));
+      collectionSelector.appendChild(option);
+
+    }
+  });
+
+  //разблокируем выбор коллекции
+  collectionSelector.removeAttribute('disabled');
+}
+
+var selectedCollectionIndex;
+collectionSelector.onchange = searchCollection;
+
+function searchCollection() {
+  selectedCollectionIndex = -1;
+  //определяем выбранную опцию
+  var selectedCollection;
+
+  var option = collectionSelector.options;
+  for (var i = 0; i < option.length; i++) {
+    if (option[i].selected) {
+      selectedCollection = option[i].value;
+    }
+
+  }
+  //узнаем индекс эемента в массиве selectedArticleArr с нужной коллекцией
+  for (var i = 0; i < selectedArticleArr.length; i++) {
+    if (selectedArticleArr[i].Collection === selectedCollection) {
+
+      selectedCollectionIndex = i;
+    }
+
+  }
+  //console.log(selectedCollection);
+  //console.log(selectedCollectionIndex);
+
+
+
+  function searchSizes() {
+    if (selectedCollectionIndex > -1) {
+      var sizes = selectedArticleArr[selectedCollectionIndex].properties;
+      for (var i = 0; i < sizes.length; i++) {
+        // console.log(sizes.length);
+
+        var size = sizes[i].width + ' x ' + sizes[i].height;
+
+        var option = new Option(size, i); // i - индекс элемента с данным размером
+
+        sizeSelector.appendChild(option);
+      }
+    }
+
+  }
+
+  resetData(sizeSelector);
+  resetData(citySelector);
+  searchSizes();
+
+
+
+  //разблокируется выбор размеров
+  sizeSelector.removeAttribute('disabled');
 
 
 }
 
-var info;
-search.oninput = function () {
-  info = search.value;
-  //console.log(info);
-  space.innerHTML = '';
-  searchCarpet(info);
-}
-var count = 0;
+var citySelector = document.getElementById('citySelector');
+var selectedSizeIndex;
 
-function searchCarpet(info) {
-  //console.log(file);
-  for (var i = 0; i < file.length; i++) {
-    count = 0;
-    var inner = file[i].article.info;
+sizeSelector.onchange = searchSize;
 
-    if (info == file[i].article) {
-      //console.log(file[i]);
-      count++;
-      showCarpet(file[i]);
+function searchSize() {
+
+  //узнать какой размер выбран
+
+  var option = sizeSelector.options;
+  for (var i = 0; i < option.length; i++) {
+    if (option[i].selected) {
+      selectedSizeIndex = +option[i].value;
     }
   }
-}
+  //console.log(selectedSizeIndex);
 
-function showCarpet(obj) {
-  //console.log(obj);
+  var selectedSize = selectedArticleArr[selectedCollectionIndex].properties[selectedSizeIndex];
 
-  for (prop in obj) {
-    var row = document.createElement('tr');
-    var property = document.createElement('td');
-    var data = document.createElement('td');
-
-    //data.style.display = 'block';
+  resetData(citySelector);
+  searchCities();
 
 
-    function propArgument(searchProp) {
-      if (prop === searchProp) {
-        property.innerHTML = prop + ': ';
-        data.innerHTML = obj[prop];
-        if (searchProp === 'city') {
-          row.style.backgroundColor = 'white';
+
+  function searchCities() {
+    if (selectedSize) {
+      for (var i = 0; i < selectedSize.properties.length; i++) {
+        //console.log(selectedSize.properties.length);
+
+        //составляется список городов для выбора
+        var city = selectedSize.properties[i].city;
+
+        //убрать повторяющиеся города
+        if (i > 0) {
+          if (selectedSize.properties[i].city !== selectedSize.properties[i - 1].city) {
+            var option = new Option(selectedSize.properties[i].city, selectedSize.properties[i].city);
+            //console.log(option);
+            citySelector.appendChild(option);
+          }
         }
       }
     }
 
-    propArgument('Collection');
-    propArgument('article');
-    propArgument('width');
-    propArgument('height');
-    propArgument('city');
-    propArgument('shopTitle');
-    propArgument('shop');
-    propArgument('quantity');
-    propArgument('price');
-    propArgument('discount');
-    row.appendChild(property);
-    row.appendChild(data);
-    space.appendChild(row);
-    //console.log(prop + ' ' + obj[prop]);
-    var newObj = obj[prop];
-    if (typeof newObj == 'object') {
-      showCarpet(newObj);
+  }
+
+  //разблокируем выбор города
+  citySelector.removeAttribute('disabled');
+}
+
+var selectedCity;
+citySelector.onchange = searchCity;
+
+function searchCity() {
+
+  var option = citySelector.options;
+  for (var i = 0; i < option.length; i++) {
+    if (option[i].selected) {
+      selectedCity = option[i].value;
 
     }
   }
+  showCarpet();
+};
 
+function showCarpet() {
+  tableContent.innerHTML = '';
+  var size = selectedArticleArr[selectedCollectionIndex].properties[selectedSizeIndex];
+  for (var i = 0; i < size.properties.length; i++) {
+    if (size.properties[i].city === selectedCity) {
 
-  //  var content = document.getElementById('content');
-  //  var string = document.createElement('tr');
-  //  var cell;
-  //  var amount;
-  //  // var sizes = obj.properties.length;
-  //
-  //  table.classList.add('active');
-  //
-  //  //Article
-  //  cell = createCell();
-  //  cell.setAttribute('rowspan', count);
-  //  cell.innerHTML = obj.article;
-  //  string.appendChild(cell);
-  //
-  //
-  //  //Collection
-  //  cell = createCell();
-  //  searchInArrayOfObjects(obj.properties);
-  //  cell.setAttribute('rowspan', amount);
-  //  cell.innerHTML = obj.Collection;
-  //  string.appendChild(cell);
+      var row = document.createElement('tr');
+      var td = document.createElement('td');
+      td.innerHTML = size.properties[i].shopTitle;
+      row.appendChild(td);
 
-  //  for (var i = 0; i < obj.properties.length; i++) {
-  //    var properties = obj.properties;
-  //    properties[i].width;
-  //    properties[i].height;
-  //
-  //    var shops = properties[i].length
-  //  }
+      td = document.createElement('td');
+      td.innerHTML = size.properties[i].shop;
+      row.appendChild(td);
 
-  //
-  //  function searchInArrayOfObjects(obj) {
-  //    for (var i = 0; i < obj.length; i++) {
-  //
-  //      if (obj === file[i]) {
-  //        amount = obj.length;
-  //      } else if (obj === file[i].properties) {
-  //        for (var i = 0; i < obj.length; i++) {
-  //          amount = obj[i].properties.length;
-  //
-  //        }
-  //      }
-  //
-  //      return amount;
-  //    }
-  //  }
-  //
-  //  // Sizes
-  //
-  //  //obj.properties.length;
-  //  cell = createCell();
-  //
-  ////  function XXX(obj.properties) {
-  ////    for (var i = 0; i < obj.length; i++) {
-  ////      amount = obj.properties[i].properties.length;
-  ////
-  ////    }
-  ////  }
-  //
-  //
-  //
-  //  searchInArrayOfObjects(obj.properties.properties)
-  //  cell.setAttribute('rowspan', amount);
-  //  //cell.innerHTML = obj.properties.width + ' x ' + obj.properties.height;
-  //  string.appendChild(cell);
-  //
-  //  content.appendChild(string);
-  //}
-  //
-  //function createCell() {
-  //  return cell = document.createElement('td');
-  //}
+      td = document.createElement('td');
+      td.innerHTML = size.properties[i].price;
+      row.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = size.properties[i].discount;
+      row.appendChild(td);
+
+      tableContent.appendChild(row);
+    }
+
+  }
+  //выводим таблицу
+  var table = document.getElementById('table');
+  table.classList.add('active');
+}
+
+function resetData(selector) {
+  var item;
+  if (selector === collectionSelector) {
+    item = 'коллекцию';
+  } else if (selector === sizeSelector) {
+    item = 'размер';
+  } else if (selector === citySelector) {
+    item = 'город';
+  }
+  selector.innerHTML = '';
+  var option = new Option('Выберите ' + item, 'default');
+  option.setAttribute('selected', '');
+  selector.appendChild(option);
+  
+  tableContent.innerHTML = '';
 }
