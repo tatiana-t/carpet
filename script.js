@@ -25,28 +25,31 @@ inputFile.onchange = function () {
   xhr.send();
 
   showTable();
-}
-
-function showTable() {
-  //прячем кнопку выбора файла
-  var inputFileWrapper = document.getElementById('inputFileWrapper');
-  inputFileWrapper.classList.add('disabled');
-
-
-
-  //выводим селекторы
-  var selectorWrap = document.getElementById('selectorWrap');
-  selectorWrap.classList.add('active');
-
-  //разблокируем строку поиска
-  inputSearch.removeAttribute('disabled');
-
-
+  
 }
 var collectionSelector = document.getElementById('collectionSelector');
 var sizeSelector = document.getElementById('sizeSelector');
 var selectedArticle;
 var selectedArticleArr = [];
+
+function showTable() {
+  
+  //переносим кнопку выбора файла
+  var inputFileButton = document.querySelector('.inputFileWrapper');
+  inputFileButton.classList.add('secondView');
+  
+  //выводим селекторы
+  var selectorWrap = document.getElementById('selectorWrap');
+  selectorWrap.classList.add('active');
+  
+  
+
+  //разблокируем строку поиска
+  inputSearch.removeAttribute('disabled');
+
+  
+}
+
 inputSearch.oninput = searchArticle;
 
 function searchArticle() {
@@ -59,6 +62,9 @@ function searchArticle() {
     if (inputFileEnabled[i].article === selectedArticle) {
 
       selectedArticleArr.push(inputFileEnabled[i]);
+      resetData(collectionSelector);
+      resetData(sizeSelector);
+      resetData(citySelector);
 
       //создаем опции выбора, вставляем в них значение коллекции
       var option = new Option(inputFileEnabled[i].Collection, inputFileEnabled[i].Collection);

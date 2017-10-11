@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <title>JSON ULTIMATE FINDER</title>
   <link rel="stylesheet" href="./css/style.css">
+<!--
+  <link href="jquery/src/jquery.formstyler.styl" rel="stylesheet" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="jquery/src/jquery.formstyler.theme.styl" rel="stylesheet" />
+  
+  <script src="jquery/dist/jquery.formstyler.min.js"></script>
+-->
 </head>
 
 <body>
@@ -12,30 +19,32 @@
     <label for="search" class="header__search-label">
       <input id="inputSearch" type="search" placeholder="введите артикул" class="header__serch-line" disabled>
     </label>
+    
+     <div class="selector-wrap" id="selectorWrap">
+
+    <select id="collectionSelector" disabled>
+    <option value="default" selected>Выбрите коллекцию</option></select>
+
+    <select id="sizeSelector" disabled>
+    <option value="default" >Выбрите размер</option>
+    </select>
+
+    <select id="citySelector" disabled>
+    <option value="default" selected>Выбрите город</option></select>
+  </div>
   </header>
-  
+
   <div class="inputFileWrapper" id="inputFileWrapper">
     <input type="file" method="get" action="" id="inputFile" class="chose-btn">
     <label for="inputFile">Выберите файл</label>
   </div>
 
-  <div class="selector-wrap" id="selectorWrap">
-   
-    <select id="collectionSelector" disabled>
-    <option value="default" selected>Выбрите коллекцию</option></select>
-    
-    <select id="sizeSelector" disabled>
-    <option value="default" >Выбрите размер</option>
-    </select>
-    
-    <select id="citySelector" disabled>
-    <option value="default" selected>Выбрите город</option></select>
-  </div>
  
+
   <table class="table" id="table">
     <thead class="thead">
       <tr>
-       <td>Название магазина</td>
+        <td>Название магазина</td>
         <td>Номер магазина</td>
         <td>Цена</td>
         <td>Скидка</td>
@@ -46,6 +55,7 @@
     </tbody>
   </table>
   <script src="script.js"></script>
+<!--  <script src="select.js"></script>-->
 </body>
 
 </html>
