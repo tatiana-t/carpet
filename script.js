@@ -25,7 +25,7 @@ inputFile.onchange = function () {
   xhr.send();
 
   showTable();
-  
+
 }
 var collectionSelector = document.getElementById('collectionSelector');
 var sizeSelector = document.getElementById('sizeSelector');
@@ -33,21 +33,21 @@ var selectedArticle;
 var selectedArticleArr = [];
 
 function showTable() {
-  
+
   //переносим кнопку выбора файла
   var inputFileButton = document.querySelector('.inputFileWrapper');
   inputFileButton.classList.add('secondView');
-  
+
   //выводим селекторы
   var selectorWrap = document.getElementById('selectorWrap');
   selectorWrap.classList.add('active');
-  
-  
+
+
 
   //разблокируем строку поиска
   inputSearch.removeAttribute('disabled');
 
-  
+
 }
 
 inputSearch.oninput = searchArticle;
@@ -216,7 +216,13 @@ function showCarpet() {
       row.appendChild(td);
 
       td = document.createElement('td');
-      td.innerHTML = size.properties[i].price;
+      var price = Number.prototype.toFixed.call(parseFloat(size.properties[i].price) || 0, 2),
+        //заменяем точку на запятую
+        price_sep = price.replace(/(\D)/g, ","),
+        //добавляем пробел как разделитель в целых
+        price_sep = price_sep.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+      price = price_sep + ' руб.';
+      td.innerHTML =  price;
       row.appendChild(td);
 
       td = document.createElement('td');
@@ -245,6 +251,6 @@ function resetData(selector) {
   var option = new Option('Выберите ' + item, 'default');
   option.setAttribute('selected', '');
   selector.appendChild(option);
-  
+
   tableContent.innerHTML = '';
 }
