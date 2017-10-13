@@ -133,7 +133,23 @@ input[type="file"] + label:hover::after {
   background-size: contain;
 }
 
+.inputFileWrapper.secondView input[type="file"] + label:hover {
+  box-shadow: none;
 
+}
+
+.inputFileWrapper.secondView input[type="file"] + label:hover::after {
+  content: 'Загрузить файл';
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+  text-transform: lowercase;
+  left: -143px;
+  padding: 10px;
+  width: 126px;
+  color: #FFFFFF;
+  background-color: #535353;
+}
 
 .table {
   display: none;
@@ -150,7 +166,7 @@ input[type="file"] + label:hover::after {
 
 .table td {
   padding: 7px;
-  border: 2px solid #828282;
+  border: 2px solid #BDBDBD;
 }
 
 .thead td {
@@ -161,14 +177,17 @@ input[type="file"] + label:hover::after {
 }
 
 .table tbody {
-  border: 2px solid #828282;
+  border: 2px solid #BDBDBD;
 }
+
 tbody td {
   text-align: right;
 }
+
 tbody td:first-child {
   text-align: left;
 }
+
 span {
   text-align: left;
   font-family: monospace;
