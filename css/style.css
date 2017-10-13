@@ -17,7 +17,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  margin-bottom: 30px;
+  
 }
 
 h1 {
@@ -31,7 +31,7 @@ h1 {
 .header__serch-line {
   padding: 10px 16px;
   border-radius: 2px;
-  width: 200px;
+  width: 180px;
   border: 1px solid #E0E0E0;
   color: #000;
   font-size: 14px;
@@ -39,9 +39,8 @@ h1 {
 }
 
 .header__serch-line:disabled {
-  background-color: #fff;
+  background-color: #cbcbcb;
 }
-
 .header__search-label {
   position: relative;
 }
@@ -57,6 +56,7 @@ select {
   margin-right: 15px;
   padding: 10px;
   border: 1px solid #E0E0E0;
+  width: 180px
 }
 
 .selector-wrap.active {
@@ -141,6 +141,7 @@ input[type="file"] + label:hover::after {
   border-collapse: collapse;
   background-color: #fff;
   margin-left: 15px;
+  margin-top: 30px;
 }
 
 .table.active {
