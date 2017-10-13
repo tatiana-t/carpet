@@ -1,4 +1,5 @@
 //вывод таблицы со всеми коврами
+var table = document.getElementById('table');
 var tableContent = document.getElementById('tableContent');
 var inputSearch = document.getElementById('inputSearch');
 
@@ -26,6 +27,7 @@ inputFile.onchange = function () {
 
   showTable();
 
+
 }
 var collectionSelector = document.getElementById('collectionSelector');
 var sizeSelector = document.getElementById('sizeSelector');
@@ -43,9 +45,14 @@ function showTable() {
   selectorWrap.classList.add('active');
 
 
-
   //разблокируем строку поиска
   inputSearch.removeAttribute('disabled');
+  inputSearch.value = '';
+
+  //обнуляем селекторы
+  resetData(collectionSelector);
+  resetData(sizeSelector);
+  resetData(citySelector);
 
 
 }
@@ -53,31 +60,39 @@ function showTable() {
 inputSearch.oninput = searchArticle;
 
 function searchArticle() {
-  //collectionSelector.innerHTML = '';
 
   selectedArticle = inputSearch.value;
+  if (selectedArticle) {
+
+    inputFileEnabled.forEach(function (value, i, inputFileEnabled) {
+      if (inputFileEnabled[i].article === selectedArticle) {
+
+        selectedArticleArr.push(inputFileEnabled[i]);
+        resetData(collectionSelector);
+        resetData(sizeSelector);
+        resetData(citySelector);
+
+        //создаем опции выбора, вставляем в них значение коллекции
+        var option = new Option(inputFileEnabled[i].Collection, inputFileEnabled[i].Collection);
+        //console.log(option);
+        //console.log(selectedArticleArr);
+        //option.appendChild(document.createTextNode(collectionArray[i]));
+        collectionSelector.appendChild(option);
+
+      }
+    });
+
+    //разблокируем выбор коллекции
+    collectionSelector.removeAttribute('disabled');
+  } else {
+    resetData(collectionSelector);
+    resetData(sizeSelector);
+    resetData(citySelector);
+    resetData(table);
+
+  }
 
 
-  inputFileEnabled.forEach(function (value, i, inputFileEnabled) {
-    if (inputFileEnabled[i].article === selectedArticle) {
-
-      selectedArticleArr.push(inputFileEnabled[i]);
-      resetData(collectionSelector);
-      resetData(sizeSelector);
-      resetData(citySelector);
-
-      //создаем опции выбора, вставляем в них значение коллекции
-      var option = new Option(inputFileEnabled[i].Collection, inputFileEnabled[i].Collection);
-      //console.log(option);
-      //console.log(selectedArticleArr);
-      //option.appendChild(document.createTextNode(collectionArray[i]));
-      collectionSelector.appendChild(option);
-
-    }
-  });
-
-  //разблокируем выбор коллекции
-  collectionSelector.removeAttribute('disabled');
 }
 
 var selectedCollectionIndex;
@@ -222,7 +237,7 @@ function showCarpet() {
         //добавляем пробел как разделитель в целых
         price_sep = price_sep.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
       price = price_sep + ' руб.';
-      td.innerHTML =  price;
+      td.innerHTML = price;
       row.appendChild(td);
 
       td = document.createElement('td');
@@ -234,23 +249,28 @@ function showCarpet() {
 
   }
   //выводим таблицу
-  var table = document.getElementById('table');
+
   table.classList.add('active');
 }
 
-function resetData(selector) {
+function resetData(data) {
   var item;
-  if (selector === collectionSelector) {
-    item = 'коллекцию';
-  } else if (selector === sizeSelector) {
-    item = 'размер';
-  } else if (selector === citySelector) {
-    item = 'город';
-  }
-  selector.innerHTML = '';
-  var option = new Option('Выберите ' + item, 'default');
-  option.setAttribute('selected', '');
-  selector.appendChild(option);
+  if (data === table) {
+    data.classList.remove('active');
+  } else {
+    if (data === collectionSelector) {
+      item = 'коллекцию';
+    } else if (data === sizeSelector) {
+      item = 'размер';
+    } else if (data === citySelector) {
+      item = 'город';
+    }
 
-  tableContent.innerHTML = '';
+    data.innerHTML = '';
+    var option = new Option('Выберите ' + item, 'default');
+    option.setAttribute('selected', '');
+    data.appendChild(option);
+
+    resetData(table);
+  }
 }

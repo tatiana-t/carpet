@@ -17,7 +17,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  
+
 }
 
 h1 {
@@ -41,6 +41,7 @@ h1 {
 .header__serch-line:disabled {
   background-color: #cbcbcb;
 }
+
 .header__search-label {
   position: relative;
 }
@@ -141,14 +142,25 @@ input[type="file"] + label:hover::after {
 .inputFileWrapper.secondView input[type="file"] + label:hover::after {
   content: 'Загрузить файл';
   position: absolute;
-  top: 100%;
+  top: 180%;
   font-size: 12px;
   text-transform: lowercase;
-  left: -143px;
+  right: 15px;
+  left: initial;
   padding: 10px;
   width: 126px;
   color: #FFFFFF;
   background-color: #535353;
+}
+
+.inputFileWrapper.secondView input[type="file"] + label:hover::before {
+  content: '';
+  position: absolute;
+  right: 25px;
+  bottom: -16px;
+  border: 6px solid #535353;
+  border-top-color: transparent;
+  border-left-color: transparent;
 }
 
 .table {
