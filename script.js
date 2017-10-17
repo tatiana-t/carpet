@@ -33,9 +33,6 @@ inputFile.onchange = function () {
 
         if (this.readyState == 4 && this.status == 200) {
           inputFileEnabled = JSON.parse(this.responseText);
-          //console.log(inputFileEnabled);
-          //tableContent.innerHTML = inputFileEnabled;
-          //tableContent.innerHTML = inputFileEnabled[0].Collection;
         }
       };
 
@@ -47,7 +44,6 @@ inputFile.onchange = function () {
       alert('Неверный формат файла')
     }
   }
-  //console.log(inputFile);
 
 }
 
@@ -98,8 +94,6 @@ function searchArticle() {
 
         //создаем опции выбора, вставляем в них значение коллекции
         var option = new Option(inputFileEnabled[i].Collection, inputFileEnabled[i].Collection);
-        //console.log(option);
-        //console.log(selectedArticleArr);
         //option.appendChild(document.createTextNode(collectionArray[i]));
         collectionSelector.appendChild(option);
 
@@ -141,16 +135,11 @@ function searchCollection() {
     }
 
   }
-  //console.log(selectedCollection);
-  //console.log(selectedCollectionIndex);
-
-
 
   function searchSizes() {
     if (selectedCollectionIndex > -1) {
       var sizes = selectedArticleArr[selectedCollectionIndex].properties;
       for (var i = 0; i < sizes.length; i++) {
-        // console.log(sizes.length);
 
         var size = sizes[i].width + ' x ' + sizes[i].height;
 
@@ -165,8 +154,6 @@ function searchCollection() {
   resetData(sizeSelector);
   resetData(citySelector);
   searchSizes();
-
-
 
   //разблокируется выбор размеров
   sizeSelector.removeAttribute('disabled');
@@ -186,7 +173,6 @@ function searchSize() {
       selectedSizeIndex = +option[i].value;
     }
   }
-  //console.log(selectedSizeIndex);
 
   var selectedSize = selectedArticleArr[selectedCollectionIndex].properties[selectedSizeIndex];
 
@@ -198,7 +184,6 @@ function searchSize() {
   function searchCities() {
     if (selectedSize) {
       for (var i = 0; i < selectedSize.properties.length; i++) {
-        //console.log(selectedSize.properties.length);
 
         //составляется список городов для выбора
         var city = selectedSize.properties[i].city;
