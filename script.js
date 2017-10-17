@@ -5,34 +5,58 @@ var inputSearch = document.getElementById('inputSearch');
 
 var inputFile = document.getElementById('inputFile');
 var inputFileEnabled;
-inputFile.onchange = function () {
 
-  inputFile = document.getElementById('inputFile').files[0];
-  inputFile = inputFile.path;
-  //console.log(inputFile);
-
-  var xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      inputFileEnabled = JSON.parse(this.responseText);
-      //console.log(inputFileEnabled);
-      //tableContent.innerHTML = inputFileEnabled;
-      //tableContent.innerHTML = inputFileEnabled[0].Collection;
-    }
-  };
-
-  xhr.open('GET', inputFile, true);
-  xhr.send();
-
-  showTable();
-
-
-}
 var collectionSelector = document.getElementById('collectionSelector');
 var sizeSelector = document.getElementById('sizeSelector');
 var selectedArticle;
 var selectedArticleArr = [];
+var selectedCollectionIndex;
+var citySelector = document.getElementById('citySelector');
+var selectedSizeIndex;
+var selectedCity;
+
+inputFile.onchange = function () {
+
+  inputFile = document.getElementById('inputFile').files[0];
+  if (inputFile) {
+    inputFile = inputFile.path;
+    extCheck(inputFile);
+  }
+  
+  
+
+  function extCheck(ext) {
+    if (ext.indexOf('.json') === ext.length - 5) {
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+          inputFileEnabled = JSON.parse(this.responseText);
+          //console.log(inputFileEnabled);
+          //tableContent.innerHTML = inputFileEnabled;
+          //tableContent.innerHTML = inputFileEnabled[0].Collection;
+        }
+      };
+
+      xhr.open('GET', inputFile, true);
+      xhr.send();
+
+      showTable();
+    } else {
+      alert('Неверный формат файла')
+    }
+  }
+  //console.log(inputFile);
+
+}
+
+
+
+inputSearch.oninput = searchArticle;
+collectionSelector.onchange = searchCollection;
+sizeSelector.onchange = searchSize;
+citySelector.onchange = searchCity;
 
 function showTable() {
 
@@ -57,7 +81,7 @@ function showTable() {
 
 }
 
-inputSearch.oninput = searchArticle;
+
 
 function searchArticle() {
 
@@ -95,8 +119,7 @@ function searchArticle() {
 
 }
 
-var selectedCollectionIndex;
-collectionSelector.onchange = searchCollection;
+
 
 function searchCollection() {
   selectedCollectionIndex = -1;
@@ -151,10 +174,7 @@ function searchCollection() {
 
 }
 
-var citySelector = document.getElementById('citySelector');
-var selectedSizeIndex;
 
-sizeSelector.onchange = searchSize;
 
 function searchSize() {
 
@@ -200,8 +220,7 @@ function searchSize() {
   citySelector.removeAttribute('disabled');
 }
 
-var selectedCity;
-citySelector.onchange = searchCity;
+
 
 function searchCity() {
 
@@ -270,6 +289,7 @@ function resetData(data) {
     var option = new Option('Выберите ' + item, 'default');
     option.setAttribute('selected', '');
     data.appendChild(option);
+    data.setAttribute('disabled', '')
 
     resetData(table);
   }

@@ -7,6 +7,7 @@
 body {
   font-family: 'Roboto';
   position: relative;
+  padding-bottom: 20px;
 }
 
 .header {
@@ -47,7 +48,7 @@ h1 {
 }
 
 .selector-wrap {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
@@ -57,12 +58,18 @@ select {
   margin-right: 15px;
   padding: 10px;
   border: 1px solid #E0E0E0;
-  width: 180px
+  width: 180px;
+  font-family: inherit;
+  font-size: 14px;
 }
-
+select:disabled {
+  background-color: #cbcbcb;
+}
+/*
 .selector-wrap.active {
   display: flex;
 }
+*/
 
 .inputFileWrapper {
   text-align: center;
@@ -112,11 +119,11 @@ input[type="file"] + label:hover::after {
 }
 
 .inputFileWrapper.secondView {
-  width: 27px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
   position: absolute;
-  top: 25px;
+  top: 23px;
   right: 10px;
 }
 
@@ -128,7 +135,7 @@ input[type="file"] + label:hover::after {
   display: block;
   width: 100%;
   height: 100%;
-  background-image: url('../img/Vector.svg');
+  background-image: url('../img/icon_file_upload_black_24px.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -142,8 +149,9 @@ input[type="file"] + label:hover::after {
 .inputFileWrapper.secondView input[type="file"] + label:hover::after {
   content: 'Загрузить файл';
   position: absolute;
-  top: 180%;
+  top: 160%;
   font-size: 12px;
+  line-height: 2em;
   text-transform: lowercase;
   right: 15px;
   left: initial;
@@ -178,7 +186,7 @@ input[type="file"] + label:hover::after {
 
 .table td {
   padding: 7px;
-  border: 2px solid #BDBDBD;
+  border: 1px solid #BDBDBD;
 }
 
 .thead td {
@@ -189,7 +197,7 @@ input[type="file"] + label:hover::after {
 }
 
 .table tbody {
-  border: 2px solid #BDBDBD;
+  border: 1px solid #BDBDBD;
 }
 
 tbody td {
