@@ -22,8 +22,8 @@ inputFile.onchange = function () {
     inputFile = inputFile.path;
     extCheck(inputFile);
   }
-  
-  
+
+
 
   function extCheck(ext) {
     if (ext.indexOf('.json') === ext.length - 5) {
@@ -246,6 +246,10 @@ function showCarpet() {
 
       td = document.createElement('td');
       td.innerHTML = size.properties[i].discount;
+      row.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = size.properties[i].quantity;
       row.appendChild(td);
 
       tableContent.appendChild(row);
